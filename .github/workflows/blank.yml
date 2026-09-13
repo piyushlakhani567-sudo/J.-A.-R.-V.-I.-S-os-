@@ -1,0 +1,81 @@
+JARVIS OS V3 WORKFLOW
+
+START
+ ↓
+JARVIS ONLINE
+ ↓
+Initialize Voice + Text To Speech
+ ↓
+Request Microphone Permission
+ ↓
+Request Camera Permission
+ ↓
+Show JARVIS HUD
+ ├── ARC REACTOR
+ ├── SPEAK TO JARVIS
+ ├── HAND CONTROL
+ ├── SECURITY MODE
+ └── RAGE / ALERT MODE
+
+SPEAK TO JARVIS
+ ↓
+Start Voice Recognition
+ ↓
+Receive Speech
+ ↓
+Display Command
+ ↓
+JARVIS Speaks Response
+
+HAND CONTROL
+ ↓
+Start Camera
+ ↓
+Detect Hand
+ ↓
+Find Thumb Tip + Index Tip
+ ↓
+Calculate Distance
+ ↓
+Distance < PINCH THRESHOLD?
+ ├── YES → PINCH DETECTED
+ │          ↓
+ │       Toggle Arc Reactor
+ │          ↓
+ │       HUD responds
+ │
+ └── NO → OPEN / RELEASE
+            ↓
+         Reset gesture state
+
+SECURITY MODE
+ ↓
+Toggle ON/OFF
+ ↓
+Display Security Status
+
+RAGE / ALERT MODE
+ ↓
+Toggle ON/OFF
+ ↓
+JARVIS announces mode
+
+ARC REACTOR
+ ↓
+Tap OR pinch
+ ↓
+Toggle ACTIVE / STANDBY
+ ↓
+Update HUD
+ ↓
+JARVIS speaks status
+
+EXIT
+ ↓
+Stop Camera
+ ↓
+Stop Voice
+ ↓
+Shutdown TTS
+ ↓
+JARVIS OFFLINE
