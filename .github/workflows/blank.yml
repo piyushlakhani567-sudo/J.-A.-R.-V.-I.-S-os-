@@ -1,4 +1,4 @@
-name: JARVIS OS V3 Build
+name: Build JARVIS OS V3 APK
 
 on:
   workflow_dispatch:
@@ -15,20 +15,24 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Make Gradle executable
-        run: chmod +x gradlew
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+      - name: Build APK
+        run: gradle assembleDebug --no-daemon
+
+      - name: Find APK
+        run: find . -name "*.apk" -type f
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: jarvis-os-v3-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: "**/*.apk"
+          if-no-files-found: error
