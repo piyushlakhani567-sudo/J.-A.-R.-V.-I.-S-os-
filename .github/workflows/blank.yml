@@ -1,81 +1,34 @@
-JARVIS OS V3 WORKFLOW
+name: JARVIS OS V3 Build
 
-START
- ↓
-JARVIS ONLINE
- ↓
-Initialize Voice + Text To Speech
- ↓
-Request Microphone Permission
- ↓
-Request Camera Permission
- ↓
-Show JARVIS HUD
- ├── ARC REACTOR
- ├── SPEAK TO JARVIS
- ├── HAND CONTROL
- ├── SECURITY MODE
- └── RAGE / ALERT MODE
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
-SPEAK TO JARVIS
- ↓
-Start Voice Recognition
- ↓
-Receive Speech
- ↓
-Display Command
- ↓
-JARVIS Speaks Response
+jobs:
+  build:
+    name: Build JARVIS OS V3 APK
+    runs-on: ubuntu-latest
 
-HAND CONTROL
- ↓
-Start Camera
- ↓
-Detect Hand
- ↓
-Find Thumb Tip + Index Tip
- ↓
-Calculate Distance
- ↓
-Distance < PINCH THRESHOLD?
- ├── YES → PINCH DETECTED
- │          ↓
- │       Toggle Arc Reactor
- │          ↓
- │       HUD responds
- │
- └── NO → OPEN / RELEASE
-            ↓
-         Reset gesture state
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
 
-SECURITY MODE
- ↓
-Toggle ON/OFF
- ↓
-Display Security Status
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
-RAGE / ALERT MODE
- ↓
-Toggle ON/OFF
- ↓
-JARVIS announces mode
+      - name: Make Gradle executable
+        run: chmod +x gradlew
 
-ARC REACTOR
- ↓
-Tap OR pinch
- ↓
-Toggle ACTIVE / STANDBY
- ↓
-Update HUD
- ↓
-JARVIS speaks status
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
-EXIT
- ↓
-Stop Camera
- ↓
-Stop Voice
- ↓
-Shutdown TTS
- ↓
-JARVIS OFFLINE
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: jarvis-os-v3-apk
+          path: app/build/outputs/apk/debug/*.apk
